@@ -1,4 +1,4 @@
-#AssetsCredits
+# AssetsCredits
 This software uses some assets.  
 When "make build", files will download to assets/*.  
 Below is the detailed information used and where to download it.
