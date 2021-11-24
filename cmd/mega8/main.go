@@ -8,5 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Printf("%v", characters.MegaManSpritesSheet)
+	fmt.Printf("%v", characters.MegaManSpritesSheetBytes)
+	fmt.Printf("%v", characters.MetallSpritesSheetBytes)
 }
