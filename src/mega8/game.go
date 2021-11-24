@@ -1,4 +1,4 @@
-package game
+package mega8
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
