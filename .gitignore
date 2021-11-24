@@ -1,3 +1,2 @@
-assets/characters/*
-!assets/characters/*.go
+assets/characters/*.png
 bin/
