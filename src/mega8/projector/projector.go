@@ -11,12 +11,13 @@ func DrawCharacter(screen *ebiten.Image, entity character.Character) {
 	op.GeoM.Translate(float64(entity.OffsetX), float64(entity.OffsetY))
 
 	nowMot := entity.NowMotion()
-	nowFrame := nowMot.Frames[nowMot.FramePos]
+	nowFrame := nowMot.Frames[nowMot.NowFrameNo]
 	nowSheet := nowFrame.Sheet
 	img := nowSheet.SubImage(image.Rect(
 		nowFrame.OriginX,
 		nowFrame.OriginY,
 		nowFrame.OriginX+nowFrame.Width,
 		nowFrame.OriginY+nowFrame.Height)).(*ebiten.Image)
+
 	screen.DrawImage(img, op)
 }

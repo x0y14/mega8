@@ -9,8 +9,9 @@ type Character struct {
 	MotionSet
 }
 
-func (c *Character) CountUp() {
+func (c *Character) Update() {
 	c.Count++
+	c.NowMotion().Update()
 }
 
 func (c *Character) NowMotion() *Motion {

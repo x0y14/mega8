@@ -1,7 +1,27 @@
 package character
 
 type Animation struct {
-	FrameNum int
-	Frames   []Frame
-	FramePos int
+	FrameNum      int
+	NowFrameNo    int
+	LifetimeCount int
+	Frames        []Frame
+}
+
+func (a *Animation) NowFrame() *Frame {
+	return &a.Frames[a.NowFrameNo]
+}
+
+func (a *Animation) NextFrame() {
+	a.NowFrameNo++
+	if a.FrameNum <= a.NowFrameNo {
+		a.NowFrameNo = 0
+	}
+}
+
+func (a *Animation) Update() {
+	a.LifetimeCount++
+	if a.NowFrame().Lifetime < a.LifetimeCount {
+		a.NextFrame()
+		a.LifetimeCount = 0
+	}
 }
