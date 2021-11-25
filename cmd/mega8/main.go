@@ -14,7 +14,7 @@ const (
 )
 
 func main() {
-	ebiten.SetWindowSize(screenWidth+50, screenHeight+50)
+	ebiten.SetWindowSize(screenWidth*1.5, screenHeight*1.5)
 	ebiten.SetWindowTitle("mega8")
 	gameMega8 := mega8.NewGame(screenWidth, screenHeight)
 	if err := ebiten.RunGame(gameMega8); err != nil {
