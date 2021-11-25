@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// mega man
-	const megaManSheetPath = "../assets/characters/mega-man.png"
+	const megaManSheetPath = "../assets/characters/megaman.png"
 	const megaManSpritesSheetUrl = "https://www.spriters-resource.com/download/68847/"
 	if _, err := os.Stat(megaManSheetPath); os.IsNotExist(err) {
 		if err := downloader.Download(megaManSpritesSheetUrl, megaManSheetPath); err != nil {
