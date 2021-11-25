@@ -9,7 +9,7 @@ var WalkMotion character.Motion
 
 func init() {
 
-	const lifetime = 4
+	const lifetime = 8
 
 	/* frames */
 	frame1 := character.Frame{
@@ -160,8 +160,10 @@ func init() {
 
 	/* animation */
 	walkAnimation := character.Animation{
-		FrameNum: 13,
-		Frames:   frames,
+		FrameNum:      13,
+		NowFrameNo:    0,
+		LifetimeCount: 0,
+		Frames:        frames,
 	}
 
 	/* motion */
