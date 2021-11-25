@@ -15,8 +15,8 @@ func init() {
 	frame1 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      0,
-		OriginX:  7,
-		OriginY:  9,
+		OriginX:  4,
+		OriginY:  7,
 		Width:    22,
 		Height:   22,
 		Lifetime: lifetime,
@@ -25,7 +25,7 @@ func init() {
 	frame2 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      1,
-		OriginX:  33,
+		OriginX:  31,
 		OriginY:  7,
 		Width:    23,
 		Height:   24,
@@ -35,7 +35,7 @@ func init() {
 	frame3 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      2,
-		OriginX:  60,
+		OriginX:  63,
 		OriginY:  6,
 		Width:    23,
 		Height:   25,
@@ -45,7 +45,7 @@ func init() {
 	frame4 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      3,
-		OriginX:  87,
+		OriginX:  95,
 		OriginY:  6,
 		Width:    23,
 		Height:   25,
@@ -55,8 +55,8 @@ func init() {
 	frame5 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      4,
-		OriginX:  114,
-		OriginY:  8,
+		OriginX:  125,
+		OriginY:  5,
 		Width:    25,
 		Height:   23,
 		Lifetime: lifetime,
@@ -65,8 +65,8 @@ func init() {
 	frame6 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      5,
-		OriginX:  143,
-		OriginY:  7,
+		OriginX:  157,
+		OriginY:  5,
 		Width:    25,
 		Height:   24,
 		Lifetime: lifetime,
@@ -75,8 +75,8 @@ func init() {
 	frame7 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      6,
-		OriginX:  172,
-		OriginY:  5,
+		OriginX:  189,
+		OriginY:  6,
 		Width:    26,
 		Height:   26,
 		Lifetime: lifetime,
@@ -85,8 +85,8 @@ func init() {
 	frame8 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      7,
-		OriginX:  202,
-		OriginY:  6,
+		OriginX:  221,
+		OriginY:  7,
 		Width:    27,
 		Height:   25,
 		Lifetime: lifetime,
@@ -95,8 +95,8 @@ func init() {
 	frame9 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      8,
-		OriginX:  233,
-		OriginY:  7,
+		OriginX:  254,
+		OriginY:  8,
 		Width:    22,
 		Height:   24,
 		Lifetime: lifetime,
@@ -105,7 +105,7 @@ func init() {
 	frame10 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      9,
-		OriginX:  259,
+		OriginX:  283,
 		OriginY:  7,
 		Width:    21,
 		Height:   24,
@@ -115,7 +115,7 @@ func init() {
 	frame11 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      10,
-		OriginX:  284,
+		OriginX:  311,
 		OriginY:  6,
 		Width:    25,
 		Height:   25,
@@ -125,7 +125,7 @@ func init() {
 	frame12 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      11,
-		OriginX:  313,
+		OriginX:  343,
 		OriginY:  5,
 		Width:    25,
 		Height:   26,
@@ -135,7 +135,7 @@ func init() {
 	frame13 := character.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      12,
-		OriginX:  342,
+		OriginX:  377,
 		OriginY:  6,
 		Width:    23,
 		Height:   25,
