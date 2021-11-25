@@ -9,7 +9,7 @@
 3. `make build`
 4. `./bin/mega8`
 ---
-####windows
+#### windows
 [make](http://gnuwin32.sourceforge.net/packages/make.htm) をインストールし、pathを通す必要があります。
 1. `go mod tidy`
 2. `cd scripts`
