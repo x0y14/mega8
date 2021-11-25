@@ -39,7 +39,7 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	for _, entity := range g.entities {
-		projector.DrawCharacter(screen, entity)
+		projector.DrawCharacter(screen, entity, true)
 	}
 	debugger.DrawFrameCount(g.count, screen)
 }
