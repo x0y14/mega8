@@ -2,6 +2,7 @@ package mega8
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/x0y14/mega8/src/debugger"
 	"github.com/x0y14/mega8/src/mega8/character"
 	"github.com/x0y14/mega8/src/mega8/character/metall"
 	"github.com/x0y14/mega8/src/mega8/projector"
@@ -31,7 +32,7 @@ func NewGame(screenWidth, screenHeight int) *Game {
 func (g *Game) Update() error {
 	g.count++
 	for _, entity := range g.entities {
-		entity.CountUp()
+		entity.Update()
 	}
 	return nil
 }
@@ -40,6 +41,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	for _, entity := range g.entities {
 		projector.DrawCharacter(screen, entity)
 	}
+	debugger.DrawFrameCount(g.count, screen)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
