@@ -2,17 +2,18 @@ package metall
 
 import (
 	"github.com/x0y14/mega8/assets/characters"
-	"github.com/x0y14/mega8/src/mega8/character"
+	"github.com/x0y14/mega8/src/mega8/entities"
+	"github.com/x0y14/mega8/src/mega8/entities/work"
 )
 
-var WalkMotion character.Motion
+var WalkMotion entities.Motion
 
 func init() {
 
 	const lifetime = 8
 
 	/* frames */
-	frame1 := character.Frame{
+	frame1 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      0,
 		OriginX:  4,
@@ -22,7 +23,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame2 := character.Frame{
+	frame2 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      1,
 		OriginX:  31,
@@ -32,7 +33,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame3 := character.Frame{
+	frame3 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      2,
 		OriginX:  63,
@@ -42,7 +43,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame4 := character.Frame{
+	frame4 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      3,
 		OriginX:  95,
@@ -52,7 +53,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame5 := character.Frame{
+	frame5 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      4,
 		OriginX:  125,
@@ -62,7 +63,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame6 := character.Frame{
+	frame6 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      5,
 		OriginX:  157,
@@ -72,7 +73,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame7 := character.Frame{
+	frame7 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      6,
 		OriginX:  189,
@@ -82,7 +83,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame8 := character.Frame{
+	frame8 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      7,
 		OriginX:  221,
@@ -92,7 +93,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame9 := character.Frame{
+	frame9 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      8,
 		OriginX:  254,
@@ -102,7 +103,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame10 := character.Frame{
+	frame10 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      9,
 		OriginX:  283,
@@ -112,7 +113,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame11 := character.Frame{
+	frame11 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      10,
 		OriginX:  311,
@@ -122,7 +123,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame12 := character.Frame{
+	frame12 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      11,
 		OriginX:  343,
@@ -132,7 +133,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frame13 := character.Frame{
+	frame13 := entities.Frame{
 		Sheet:    characters.MetallSpritesSheet,
 		Num:      12,
 		OriginX:  377,
@@ -142,7 +143,7 @@ func init() {
 		Lifetime: lifetime,
 	}
 
-	frames := []character.Frame{
+	frames := []entities.Frame{
 		frame1,
 		frame2,
 		frame3,
@@ -159,17 +160,29 @@ func init() {
 	}
 
 	/* animation */
-	walkAnimation := character.Animation{
+	walkAnimation := entities.Animation{
+		Direction:     entities.Right,
 		FrameNum:      13,
 		NowFrameNo:    0,
 		LifetimeCount: 0,
 		Frames:        frames,
 	}
 
+	effectOfWalk := work.Effect{
+		EffectKind: work.Move,
+	}
+
+	workOfWalk := work.Work{
+		EffectRange: nil,
+		Effects:     []work.Effect{effectOfWalk},
+		Lifetime:    nil,
+	}
+
 	/* motion */
-	WalkMotion = character.Motion{
+	WalkMotion = entities.Motion{
 		Name:      "walk",
-		Kind:      character.Walk,
+		Kind:      entities.Walk,
 		Animation: &walkAnimation,
+		Works:     []work.Work{workOfWalk},
 	}
 }

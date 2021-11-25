@@ -1,10 +1,15 @@
-package character
+package entities
 
 type Animation struct {
 	FrameNum      int
 	NowFrameNo    int
 	LifetimeCount int
 	Frames        []Frame
+	Direction
+}
+
+func (a *Animation) SetDirection(direction Direction) {
+	a.Direction = direction
 }
 
 func (a *Animation) NowFrame() *Frame {
