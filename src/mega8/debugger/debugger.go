@@ -29,10 +29,24 @@ func init() {
 }
 
 func DrawFrameCount(count int, screen *ebiten.Image) {
-	{
-		const x, y = 0, 10
-		b := text.BoundString(fontFace, fmt.Sprintf("frame: %v", count))
-		ebitenutil.DrawRect(screen, float64(b.Min.X+x), float64(b.Min.Y+y), float64(b.Dx()), float64(b.Dy()), color.Transparent)
-		text.Draw(screen, fmt.Sprintf("frame: %v", count), fontFace, x, y, color.White)
+	const x, y = 0, 10
+	b := text.BoundString(fontFace, fmt.Sprintf("frame: %v", count))
+	ebitenutil.DrawRect(screen, float64(b.Min.X+x), float64(b.Min.Y+y), float64(b.Dx()), float64(b.Dy()), color.Transparent)
+	text.Draw(screen, fmt.Sprintf("frame: %v", count), fontFace, x, y, color.White)
+}
+
+func DrawKeysPressed(keys []ebiten.Key, screen *ebiten.Image) {
+	const x, y = 0, 20
+
+	var keyList string
+	for i, key := range keys {
+		keyList += key.String()
+		if len(keys)-1 > i {
+			keyList += ", "
+		}
 	}
+
+	b := text.BoundString(fontFace, fmt.Sprintf("key: %v", keyList))
+	ebitenutil.DrawRect(screen, float64(b.Min.X+x), float64(b.Min.Y+y), float64(b.Dx()), float64(b.Dy()), color.Transparent)
+	text.Draw(screen, fmt.Sprintf("key: %v", keyList), fontFace, x, y, color.White)
 }
