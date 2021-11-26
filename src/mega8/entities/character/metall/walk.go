@@ -161,7 +161,7 @@ func init() {
 
 	/* animation */
 	walkAnimation := entities.Animation{
-		Direction:     entities.Right,
+		Direction:     entities.Left,
 		FrameNum:      13,
 		NowFrameNo:    0,
 		LifetimeCount: 0,
