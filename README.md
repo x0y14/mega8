@@ -18,5 +18,12 @@
 
 ---
 
+### メモ
+#### Entity
+状態を持った全て
+####Stage
+背景の管理を担当
+
+---
 MegaMan and all related characters are copyright CAPCOM.
 
