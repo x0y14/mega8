@@ -2,6 +2,7 @@ package core
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/x0y14/mega8/src/mega8/debugger"
 	"github.com/x0y14/mega8/src/mega8/entities/character"
 	"github.com/x0y14/mega8/src/mega8/entities/character/metall"
@@ -34,6 +35,8 @@ func NewGame(screenWidth, screenHeight int) *Game {
 
 func (g *Game) Update() error {
 	g.count++
+	g.keys = inpututil.AppendPressedKeys(g.keys[:0])
+
 	g.CheckKeyBoard()
 
 	g.player.Update()
@@ -44,10 +47,12 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	for _, entity := range g.entities {
-		projector.DrawCharacter(screen, entity, true)
-	}
+	projector.DrawCharacter(screen, *g.player, true)
+	//for _, entity := range g.entities {
+	//	projector.DrawCharacter(screen, entity, true)
+	//}
 	debugger.DrawFrameCount(g.count, screen)
+	debugger.DrawKeysPressed(g.keys, screen)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
