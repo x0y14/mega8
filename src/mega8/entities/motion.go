@@ -9,4 +9,4 @@ type Motion struct {
 	Works []work.Work
 }
 
-func (m *Motion) Do() {}
+func (m *Motion) Exec() {}

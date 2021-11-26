@@ -6,4 +6,5 @@ const (
 	_ EffectKind = iota
 	Move
 	Damage
+	Attack
 )
