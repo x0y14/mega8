@@ -9,12 +9,14 @@ type Metall character2.Character
 
 func New() *character2.Character {
 	motionSet := entities.MotionSet{
-		entities.Walk: &WalkMotion,
+		entities.Walk:   &WalkMotion,
+		entities.Attack: &AttackMotion,
 	}
 	return &character2.Character{
 		OffsetX:     0,
 		OffsetY:     0,
 		Count:       0,
+		Direction:   entities.Left,
 		MotionState: entities.Walk,
 		MotionSet:   motionSet,
 	}
