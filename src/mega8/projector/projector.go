@@ -13,17 +13,39 @@ func DrawCharacter(screen *ebiten.Image, entity character.Character, offsetAdjus
 	offsetX := float64(entity.OffsetX)
 	offsetY := float64(entity.OffsetY)
 
+	//if entity.NowMotion().Direction == entities.Left {
+	//}
+
 	dX := 1.0
 	dY := 1.0
 
-	// 向き調整
-	switch entity.NowMotion().Direction {
-	case entities.Left:
-		dX = -1
+	if entities.Left == entity.NowMotion().Direction && entities.Right == entity.Direction {
+		// モーションの向きが左なんだけど、キャラが右を向いていた場合。
+		dX *= -1.0
+		// 位置調整
 		if offsetAdjust {
 			offsetX += float64(entity.NowMotion().NowFrame().Width)
 		}
+	} else if entities.Right == entity.NowMotion().Direction && entities.Left == entity.Direction {
+		// モーションの向きが右なんだけど、キャラが左を向いていた場合。
+		dX *= -1.0
+		if offsetAdjust {
+			offsetX -= float64(entity.NowMotion().NowFrame().Width)
+		}
 	}
+
+	//switch entity.Direction {
+	//case entities.Left:
+	//case entities.Right:
+	//}
+
+	// 向き調整
+	//switch entity.Direction {
+	//case entities.Left:
+	//	if offsetAdjust {
+	//		offsetX += float64(entity.NowMotion().NowFrame().Width)
+	//	}
+	//}
 	op.GeoM.Scale(dX, dY)
 	op.GeoM.Translate(offsetX, offsetY)
 
