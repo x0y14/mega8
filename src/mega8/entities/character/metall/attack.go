@@ -95,13 +95,12 @@ func init() {
 	}
 
 	/* animation */
-	attackAnimation := entities.Animation{
-		Direction:     entities.Left,
-		FrameNum:      7,
-		NowFrameNo:    0,
-		LifetimeCount: 0,
-		Frames:        frames,
-	}
+	attackAnimation := entities.NewAnimation(
+		7,
+		frames,
+		entities.Left,
+		false,
+	)
 
 	effectOfAttack := work.Effect{
 		EffectKind: work.Attack,
@@ -117,7 +116,7 @@ func init() {
 	AttackMotion = entities.Motion{
 		Name:      "walk",
 		Kind:      entities.Walk,
-		Animation: &attackAnimation,
+		Animation: attackAnimation,
 		Works:     []work.Work{workOfAttack},
 	}
 }

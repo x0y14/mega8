@@ -160,13 +160,12 @@ func init() {
 	}
 
 	/* animation */
-	walkAnimation := entities.Animation{
-		Direction:     entities.Left,
-		FrameNum:      13,
-		NowFrameNo:    0,
-		LifetimeCount: 0,
-		Frames:        frames,
-	}
+	walkAnimation := entities.NewAnimation(
+		13,
+		frames,
+		entities.Left,
+		true,
+	)
 
 	effectOfWalk := work.Effect{
 		EffectKind: work.Move,
@@ -182,7 +181,7 @@ func init() {
 	WalkMotion = entities.Motion{
 		Name:      "walk",
 		Kind:      entities.Walk,
-		Animation: &walkAnimation,
+		Animation: walkAnimation,
 		Works:     []work.Work{workOfWalk},
 	}
 }

@@ -6,6 +6,18 @@ type Animation struct {
 	LifetimeCount int
 	Frames        []Frame
 	Direction
+	AllowInterrupt bool
+}
+
+func NewAnimation(frameNum int, frames []Frame, direction Direction, allowInterrupt bool) *Animation {
+	return &Animation{
+		FrameNum:       frameNum,
+		NowFrameNo:     0,
+		LifetimeCount:  0,
+		Frames:         frames,
+		Direction:      direction,
+		AllowInterrupt: allowInterrupt,
+	}
 }
 
 func (a *Animation) SetDirection(direction Direction) {
