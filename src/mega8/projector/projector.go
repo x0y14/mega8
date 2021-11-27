@@ -13,9 +13,6 @@ func DrawCharacter(screen *ebiten.Image, entity character.Character, offsetAdjus
 	offsetX := float64(entity.OffsetX)
 	offsetY := float64(entity.OffsetY)
 
-	//if entity.NowMotion().Direction == entities.Left {
-	//}
-
 	dX := 1.0
 	dY := 1.0
 
@@ -34,27 +31,8 @@ func DrawCharacter(screen *ebiten.Image, entity character.Character, offsetAdjus
 		}
 	}
 
-	//switch entity.Direction {
-	//case entities.Left:
-	//case entities.Right:
-	//}
-
-	// 向き調整
-	//switch entity.Direction {
-	//case entities.Left:
-	//	if offsetAdjust {
-	//		offsetX += float64(entity.NowMotion().NowFrame().Width)
-	//	}
-	//}
 	op.GeoM.Scale(dX, dY)
 	op.GeoM.Translate(offsetX, offsetY)
-
-	//if offsetAdjust {
-	//	op.GeoM.Scale(-1, 1)
-	//	op.GeoM.Translate(float64(entity.OffsetX)+float64(entity.NowMotion().NowFrame().Width), float64(entity.OffsetY))
-	//} else {
-	//	op.GeoM.Translate(float64(entity.OffsetX), float64(entity.OffsetY))
-	//}
 
 	nowMot := entity.NowMotion()
 	nowFrame := nowMot.Frames[nowMot.NowFrameNo]
