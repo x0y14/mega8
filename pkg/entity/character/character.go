@@ -1,31 +1,62 @@
 package character
 
 import (
+	"context"
+	"fmt"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/x0y14/mega8/pkg/entity"
 	"github.com/x0y14/mega8/pkg/game/compute"
 )
 
 type Character struct {
-	count  int
-	Offset *compute.Coordinate
-	compute.Direction
+	count                    int
+	lifetimeCount            int
+	motionKindUpdateSender   chan<- entity.MotionKind
+	motionKindUpdateReceiver <-chan entity.MotionKind
+
+	Name              string
+	Offset            *compute.Coordinate
+	CurrentDirection  compute.Direction
 	CurrentMotionKind entity.MotionKind
 	MotionSet         map[entity.MotionKind]entity.Motion
 }
 
-func NewCharacter(offset *compute.Coordinate, defaultDirection compute.Direction, motionSet map[entity.MotionKind]entity.Motion) *Character {
+func NewCharacter(name string, offset *compute.Coordinate, defaultDirection compute.Direction, motionSet map[entity.MotionKind]entity.Motion) *Character {
+	motionKindUpdateCh := make(chan entity.MotionKind)
+
 	return &Character{
-		count:             0,
-		Offset:            offset,
-		Direction:         defaultDirection,
-		CurrentMotionKind: entity.Idle,
-		MotionSet:         motionSet,
+		count:                    0,
+		lifetimeCount:            0,
+		Offset:                   offset,
+		motionKindUpdateSender:   motionKindUpdateCh,
+		motionKindUpdateReceiver: motionKindUpdateCh,
+		Name:                     name,
+		CurrentDirection:         defaultDirection,
+		CurrentMotionKind:        entity.Idle,
+		MotionSet:                motionSet,
 	}
+}
+
+func (c *Character) SetOffset(coordinate *compute.Coordinate) {
+	c.Offset = coordinate
 }
 
 func (c *Character) CurrentMotion() entity.Motion {
 	return c.MotionSet[c.CurrentMotionKind]
+}
+
+func (c *Character) IsCurrentDirection(direction compute.Direction) bool {
+	return c.CurrentDirection == direction
+}
+
+func (c *Character) UpdateCurrentDirection(direction compute.Direction) {
+	c.CurrentDirection = direction
+}
+
+func (c *Character) UpdateCurrentDirectionIfNotSame(direction compute.Direction) {
+	if c.CurrentDirection != direction {
+		c.UpdateCurrentDirection(direction)
+	}
 }
 
 func (c *Character) Draw(screen *ebiten.Image, offsetAdjust bool) {
@@ -36,14 +67,14 @@ func (c *Character) Draw(screen *ebiten.Image, offsetAdjust bool) {
 	directionX := float64(1)
 	directionY := float64(1)
 
-	if compute.Left == c.CurrentMotion().DefaultDirection && compute.Right == c.Direction {
+	if compute.Left == c.CurrentMotion().DefaultDirection && compute.Right == c.CurrentDirection {
 		// モーションの向きが左なんだけど、キャラが右を向いていた場合。
 		directionX *= -1.0
 		// 位置調整
 		if offsetAdjust {
 			offsetX += float64(c.CurrentMotion().CurrentFrame().Width)
 		}
-	} else if compute.Right == c.CurrentMotion().DefaultDirection && compute.Left == c.Direction {
+	} else if compute.Right == c.CurrentMotion().DefaultDirection && compute.Left == c.CurrentDirection {
 		directionX *= -1.0
 		if offsetAdjust {
 			offsetX -= float64(c.CurrentMotion().CurrentFrame().Width)
@@ -61,5 +92,58 @@ func (c *Character) Draw(screen *ebiten.Image, offsetAdjust bool) {
 
 func (c *Character) Update() {
 	c.count++
-	//fmt.Printf("character-count: %v\n", c.count)
+	fmt.Printf("character update: %v\n", c.Name)
+	cm := c.CurrentMotion()
+	cm.Update()
+}
+
+func (c *Character) IsCurrentMotionKind(kind entity.MotionKind) bool {
+	return c.CurrentMotionKind == kind
+}
+
+func (c *Character) UpdateCurrentMotionKind(kind entity.MotionKind) {
+	c.motionKindUpdateSender <- kind
+	fmt.Printf("new current motion kind: %v\n", kind)
+}
+
+func (c *Character) UpdateCurrentMotionKindIfNotSame(kind entity.MotionKind) {
+	if c.CurrentMotionKind != kind {
+		c.UpdateCurrentMotionKind(kind)
+	}
+}
+
+func (c *Character) ListenMotionKindUpdate(ctx context.Context) {
+	fmt.Printf("Start ListenMotionKindUpdate: %v\n", c.Name)
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case <-c.motionKindUpdateReceiver:
+			c.CurrentMotionKind = <-c.motionKindUpdateReceiver
+			fmt.Printf("motion kind updated: %v\n", c.CurrentMotionKind.String())
+			c.count = 0
+		}
+	}
+}
+
+func (c *Character) DoIdle(direction compute.Direction) {
+	if c.IsCurrentMotionKind(entity.Idle) && c.IsCurrentDirection(direction) {
+		// 向きを変えたわけでも、動きを変更したわけでもないので終わり
+		return
+	}
+
+}
+
+func (c *Character) DoWalk(direction compute.Direction) {
+	if c.IsCurrentMotionKind(entity.Walk) && c.IsCurrentDirection(direction) {
+		// 向きを変えたわけでも、動きを変更したわけでもないので終わり
+		return
+	}
+}
+
+func (c *Character) DoAttack(direction compute.Direction) {
+	if c.IsCurrentMotionKind(entity.Attack) {
+		// 攻撃中モーション中に攻撃することは現段階で想定してないので、終わり
+		return
+	}
 }

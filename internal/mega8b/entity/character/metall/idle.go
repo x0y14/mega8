@@ -7,10 +7,8 @@ import (
 	"github.com/x0y14/mega8/pkg/game/display"
 )
 
-var IdleMotion *entity.Motion
-
-func init() {
-	const lifetime = 8
+func NewIdleMotion() *entity.Motion {
+	const lifetime = 1
 	var sheet = characters.MetallSpritesSheet
 
 	frame1 := display.NewFrame(
@@ -30,10 +28,12 @@ func init() {
 		compute.Left,
 	)
 
-	IdleMotion = entity.NewMotion(
+	IdleMotion := entity.NewMotion(
 		"idle",
 		entity.Idle,
 		idleAnimation,
 		nil,
 	)
+
+	return IdleMotion
 }

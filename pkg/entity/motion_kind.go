@@ -5,6 +5,7 @@ type MotionKind int
 const (
 	_ MotionKind = iota
 	Idle
+	Hide
 	Walk
 	Run
 	Jump
@@ -15,6 +16,7 @@ const (
 
 var motionKinds = [...]string{
 	Idle:   "Idle",
+	Hide:   "Hide",
 	Walk:   "Walk",
 	Run:    "Run",
 	Jump:   "Jump",

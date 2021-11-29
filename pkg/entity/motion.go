@@ -20,3 +20,7 @@ func NewMotion(name string, kind MotionKind, animation *display.Animation, effec
 		Effects:   effects,
 	}
 }
+
+func (m *Motion) Update() {
+	m.Animation.Update()
+}
