@@ -13,9 +13,9 @@ func NewIdleMotion() *entity.Motion {
 
 	frame1 := display.NewFrame(
 		sheet,
-		compute.NewCoordinate(176, 133),
-		20,
-		15,
+		compute.NewCoordinate(4, 7),
+		22,
+		22,
 		lifetime,
 	)
 
@@ -28,12 +28,13 @@ func NewIdleMotion() *entity.Motion {
 		compute.Left,
 	)
 
-	IdleMotion := entity.NewMotion(
+	idleMotion := entity.NewMotion(
 		"idle",
 		entity.Idle,
 		idleAnimation,
 		nil,
+		true,
 	)
 
-	return IdleMotion
+	return idleMotion
 }

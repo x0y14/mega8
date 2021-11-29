@@ -10,7 +10,8 @@ import (
 
 type Character struct {
 	count                    int
-	lifetimeCount            int
+	internalCount            int
+	currentMotionMaintainTo  int
 	motionKindUpdateSender   chan<- entity.MotionKind
 	motionKindUpdateReceiver <-chan entity.MotionKind
 
@@ -26,7 +27,8 @@ func NewCharacter(name string, offset *compute.Coordinate, defaultDirection comp
 
 	return &Character{
 		count:                    0,
-		lifetimeCount:            0,
+		internalCount:            0,
+		currentMotionMaintainTo:  0,
 		Offset:                   offset,
 		motionKindUpdateSender:   motionKindUpdateCh,
 		motionKindUpdateReceiver: motionKindUpdateCh,
@@ -92,6 +94,7 @@ func (c *Character) Draw(screen *ebiten.Image, offsetAdjust bool) {
 
 func (c *Character) Update() {
 	c.count++
+	c.internalCount++
 	fmt.Printf("character update: %v\n", c.Name)
 	cm := c.CurrentMotion()
 	cm.Update()
@@ -121,17 +124,31 @@ func (c *Character) ListenMotionKindUpdate(ctx context.Context) {
 		case <-c.motionKindUpdateReceiver:
 			c.CurrentMotionKind = <-c.motionKindUpdateReceiver
 			fmt.Printf("motion kind updated: %v\n", c.CurrentMotionKind.String())
-			c.count = 0
+			c.internalCount = 0
 		}
 	}
 }
 
-func (c *Character) DoIdle(direction compute.Direction) {
-	if c.IsCurrentMotionKind(entity.Idle) && c.IsCurrentDirection(direction) {
-		// 向きを変えたわけでも、動きを変更したわけでもないので終わり
-		return
-	}
+func (c *Character) IsCurrentMotionAllowInterrupt() bool {
+	return c.CurrentMotion().AllowInterrupt
+}
 
+func (c *Character) SetMotionMaintainTo(totalLifetime int) {
+	c.currentMotionMaintainTo = c.count + totalLifetime
+}
+
+func (c *Character) IsMotionEnded() bool {
+	return c.count > c.currentMotionMaintainTo
+}
+
+func (c *Character) DoIdle() {
+	c.UpdateCurrentMotionKindIfNotSame(entity.Idle)
+	c.SetMotionMaintainTo(0)
+}
+
+func (c *Character) DoHide() {
+	c.UpdateCurrentMotionKindIfNotSame(entity.Hide)
+	c.SetMotionMaintainTo(0)
 }
 
 func (c *Character) DoWalk(direction compute.Direction) {
@@ -139,11 +156,16 @@ func (c *Character) DoWalk(direction compute.Direction) {
 		// 向きを変えたわけでも、動きを変更したわけでもないので終わり
 		return
 	}
+	c.UpdateCurrentDirectionIfNotSame(direction)
+	c.UpdateCurrentMotionKindIfNotSame(entity.Walk)
+	c.SetMotionMaintainTo(0)
 }
 
-func (c *Character) DoAttack(direction compute.Direction) {
+func (c *Character) DoAttack() {
 	if c.IsCurrentMotionKind(entity.Attack) {
 		// 攻撃中モーション中に攻撃することは現段階で想定してないので、終わり
 		return
 	}
+	c.UpdateCurrentMotionKindIfNotSame(entity.Attack)
+	c.SetMotionMaintainTo(c.CurrentMotion().TotalLifetime)
 }

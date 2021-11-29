@@ -9,15 +9,17 @@ type Motion struct {
 	Name string
 	Kind MotionKind
 	*display.Animation
-	Effects []compute.Effect
+	Effects        []compute.Effect
+	AllowInterrupt bool
 }
 
-func NewMotion(name string, kind MotionKind, animation *display.Animation, effects []compute.Effect) *Motion {
+func NewMotion(name string, kind MotionKind, animation *display.Animation, effects []compute.Effect, allowInterrupt bool) *Motion {
 	return &Motion{
-		Name:      name,
-		Kind:      kind,
-		Animation: animation,
-		Effects:   effects,
+		Name:           name,
+		Kind:           kind,
+		Animation:      animation,
+		Effects:        effects,
+		AllowInterrupt: allowInterrupt,
 	}
 }
 

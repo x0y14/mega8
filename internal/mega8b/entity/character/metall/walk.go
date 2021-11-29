@@ -7,8 +7,6 @@ import (
 	"github.com/x0y14/mega8/pkg/game/display"
 )
 
-//var WalkMotion *entity.Motion
-
 func NewWalkMotion() *entity.Motion {
 	const lifetime = 8
 	var sheet = characters.MetallSpritesSheet
@@ -138,12 +136,13 @@ func NewWalkMotion() *entity.Motion {
 		compute.Left,
 	)
 
-	WalkMotion := entity.NewMotion(
+	walkMotion := entity.NewMotion(
 		"walk",
 		entity.Walk,
 		walkAnimation,
 		nil,
+		true,
 	)
 
-	return WalkMotion
+	return walkMotion
 }

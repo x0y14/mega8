@@ -10,6 +10,8 @@ func NewMetall(name string) *entity.Entity {
 	motionSet := map[entity.MotionKind]entity.Motion{}
 	motionSet[entity.Idle] = *NewIdleMotion()
 	motionSet[entity.Walk] = *NewWalkMotion()
+	motionSet[entity.Hide] = *NewHideMotion()
+	motionSet[entity.Attack] = *NewAttackMotion()
 
 	var mtl entity.Entity = character.NewCharacter(
 		name,

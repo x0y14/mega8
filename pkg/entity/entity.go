@@ -19,6 +19,14 @@ type Entity interface {
 	IsCurrentMotionKind(kind MotionKind) bool
 	UpdateCurrentMotionKind(kind MotionKind)
 	UpdateCurrentMotionKindIfNotSame(kind MotionKind)
-
 	ListenMotionKindUpdate(ctx context.Context)
+
+	IsCurrentMotionAllowInterrupt() bool
+	SetMotionMaintainTo(totalLifetime int)
+	IsMotionEnded() bool
+
+	DoIdle()
+	DoWalk(direction compute.Direction)
+	DoHide()
+	DoAttack()
 }
