@@ -29,6 +29,13 @@ Entity
 ####Stage
 背景の管理を担当
 
+motionは、キャラクターにworkを付与するものにするのはどうだろうか。
+workを司る役目がいて、そこに渡せば、一括管理ができる。
+そうすれば、複数入力に対応できそう？
+ステージからの効果とか、、、？
+
+
+
 ---
 MegaMan and all related characters are copyright CAPCOM.
 
